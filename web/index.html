@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swagmo · Pittsburgh aerial taxi simulator</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><span class="logo">▞▚</span> SWAGMO <small>aerial-taxi motion planning sim · Pittsburgh</small></div>
+  <div id="kpis"></div>
+  <div class="runctl">
+    <button id="btnPause" title="Space">⏸</button><button id="btnStep" title="N">⏭</button>
+    <select id="selSpeed"><option>1</option><option selected>2</option><option>5</option><option>10</option><option>20</option></select><span class="dim">× speed</span>
+    <button id="btnRestart">↻ restart</button>
+    <button id="btnTutorial" title="Replay the guided tutorial">? Tutorial</button>
+  </div>
+</header>
+
+<main>
+  <aside id="left">
+    <section>
+      <h3>Scenario</h3>
+      <label>Algorithm preset
+        <select id="selPreset"><option value="D">D: Full system</option><option value="C">C: Physics-aware</option><option value="B">B: Space-time A*</option><option value="A">A: Independent A*</option></select>
+      </label>
+      <label>Fleet size <b id="vFleet">60</b><input id="rFleet" type="range" min="5" max="500" step="5" value="60"></label>
+      <label>Ride demand <b id="vDemand">1.0×</b><input id="rDemand" type="range" min="0" max="6" step="0.25" value="1"></label>
+      <label>Random seed <input id="inSeed" type="number" value="7" min="1" max="9999"></label>
+      <p class="dim small">Fleet size / seed apply on restart.</p>
+      <button id="btnStress" class="wide stress">💥 Stress: launch all</button>
+      <label class="chk"><input type="checkbox" id="chkParallel"> parallel take-offs (unsafe)</label>
+      <p class="dim small">Stress restarts with the whole fleet requesting rides at once.</p>
+    </section>
+    <section>
+      <h3>Weather</h3>
+      <label>Wind (10 m) <b id="vWind">3.5 m/s</b><input id="rWind" type="range" min="0" max="14" step="0.5" value="3.5"></label>
+      <label>From <b id="vDir">250°</b><input id="rDir" type="range" min="0" max="355" step="5" value="250"></label>
+      <label>Gustiness <b id="vGust">1.0×</b><input id="rGust" type="range" min="0" max="3" step="0.1" value="1"></label>
+      <button id="btnLive" class="wide">☁ load live Pittsburgh wind</button>
+    </section>
+    <section>
+      <h3>Features <span class="dim small">(toggle live)</span></h3>
+      <div id="toggles"></div>
+    </section>
+    <section>
+      <h3>Inject failure</h3>
+      <p class="dim small" id="targetHint">Target: click a car to select it, otherwise a random airborne one.</p>
+      <div id="faults"></div>
+    </section>
+  </aside>
+
+  <section id="center">
+    <div id="stage">
+      <canvas id="map" width="360" height="240"></canvas>
+      <div id="toast"></div>
+      <div id="viewhint"></div>
+    </div>
+    <canvas id="side" width="360" height="64"></canvas>
+    <div id="bottom">
+      <div id="logwrap"><h3>Event log</h3><div id="log"></div></div>
+      <div id="faultwrap"><h3>Failure records</h3><div id="faultlist"></div><canvas id="spark" width="240" height="44"></canvas><div class="dim small" id="sparkLegend"></div></div>
+    </div>
+  </section>
+
+  <aside id="right">
+    <h3>View</h3>
+    <div id="views"></div>
+    <h3>Selected</h3>
+    <div id="card" class="card dim">Click a taxi on the map.</div>
+    <div id="cardBtns" hidden>
+      <button id="btnDivert">↪ divert</button><button id="btnEmerg">⛑ emergency land</button><button id="btnDesel">✕</button>
+    </div>
+    <h3>Legend</h3>
+    <div class="legend">
+      <span><i style="background:#a8d8ff"></i>vertiport</span><span><i style="background:#b6f0d0"></i>emergency site</span>
+      <span><i style="background:#ffb3c7"></i>emergency / hazard</span><span><i style="background:#ffcf70"></i>degraded / frozen</span>
+      <span><i style="background:#ffd6a5"></i>external traffic</span><span><i style="background:#ff7a9c"></i>restricted airspace</span>
+    </div>
+  </aside>
+</main>
+<script type="module" src="main.js"></script>
+</body>
+</html>

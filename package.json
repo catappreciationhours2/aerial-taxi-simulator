@@ -1,0 +1,16 @@
+{
+  "name": "swagmo",
+  "version": "1.0.0",
+  "description": "Swagmo: physics-aware, risk-constrained multi-agent motion planning simulator for autonomous aerial taxis over Pittsburgh",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test",
+    "bench": "node scripts/bench.js",
+    "bench:quick": "node scripts/bench.js --quick",
+    "fetch-osm": "node scripts/fetch-osm.js"
+  }
+}
