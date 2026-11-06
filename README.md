@@ -2,7 +2,7 @@
 
 A simulator and planner for a fleet of autonomous aerial taxis. It handles restricted airspace, wind and gusts near terrain, other air traffic, and injected failures.
 
-# Available at https://catappreciationhours2.github.io/aerial-taxi-simulator/
+Available at https://catappreciationhours2.github.io/aerial-taxi-simulator/
 
 
 ## Run it Locally (3 steps, Node 18+ only, no `npm install`)
